@@ -10,14 +10,19 @@ fun main() = runBlocking{
     GlobalScope.launch {    //creates a background coroutine that runs on a background thread //let's say Thread: T1
         println("Fake work starts: ${Thread.currentThread().name}")
 //    Thread.sleep(1000) //pretend doing some work...maybe file upload
-        delay(1000) //better than thread.sleep //Coroutine is suspended but thread T1 is free(not blocked)
+        mySuspendFun(1000) //better than thread.sleep //Coroutine is suspended but thread T1 is free(not blocked)
         println("Fake work finished: ${Thread.currentThread().name}")
     }
 
     //the below thread.slepp blocks the current main thread and wait for the coroutine to finish(practically not the right way to wait)
 //    Thread.sleep(2000)
 
-    delay(1000) //main thread: wait for coroutine to finish the execution(practically not the right way to wait)
+    mySuspendFun(1000) //main thread: wait for coroutine to finish the execution(practically not the right way to wait)
     println("Main program ends: ${Thread.currentThread().name}")
 
+}
+
+suspend fun mySuspendFun(time: Long)
+{
+    delay(time)
 }
