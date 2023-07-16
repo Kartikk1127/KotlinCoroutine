@@ -4,9 +4,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.concurrent.thread
 
-fun main() {
+fun main() = runBlocking{
 
-runBlocking {
     println("Main program starts: ${Thread.currentThread().name}")
     GlobalScope.launch {    //creates a background coroutine that runs on a background thread //let's say Thread: T1
         println("Fake work starts: ${Thread.currentThread().name}")
@@ -21,5 +20,4 @@ runBlocking {
     delay(1000) //main thread: wait for coroutine to finish the execution(practically not the right way to wait)
     println("Main program ends: ${Thread.currentThread().name}")
 
-}
 }
