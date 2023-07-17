@@ -6,9 +6,9 @@ fun main() = runBlocking{
     println("Main program starts: ${Thread.currentThread().name}")
 
     val time = measureTimeMillis {
-        val msgOne = getMessageOne()
-        val msgTwo = getMessageTwo()
-        println("The entire message is: ${msgOne+msgTwo}")
+        val msgOne: Deferred<String> = async { getMessageOne() }
+        val msgTwo: Deferred<String> = async { getMessageTwo() }
+        println("The entire message is: ${msgOne.await()+msgTwo.await()}")
     }
 
     println("Completed in: $time ms")
