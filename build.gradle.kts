@@ -15,6 +15,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+    implementation("com.jsoniter:jsoniter:0.9.19")
     implementation("junit:junit:4.12")
 }
 
