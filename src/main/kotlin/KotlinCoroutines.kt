@@ -5,20 +5,15 @@ fun main() = runBlocking{
 
     println("Main program starts: ${Thread.currentThread().name}")
 
-    withTimeout(2000){ //if this coroutine fails to execute within 2000 ms then this function(withTimeout) will throw TimeoutCancellationException
-        try{
-            for (i in 0..500){
-                println("$i.")
-                delay(500)
-            }
+    val result: String? = withTimeoutOrNull(10000){ //if this coroutine fails to execute within 2000 ms then this function(withTimeout) will throw TimeoutCancellationException
+        for (i in 0..500){
+            println("$i.")
+            delay(500)
         }
-        catch (ex: TimeoutCancellationException){
-            println("Exception handled successfully")
-        }
-        finally {
-            println("Code ends now")
-        }
+        "i am done"
     }
+
+    println("Result: $result")
 
     println("\nMain program ends: ${Thread.currentThread().name}")
 
