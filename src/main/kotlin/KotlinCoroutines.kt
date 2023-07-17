@@ -1,20 +1,29 @@
 import kotlinx.coroutines.*
 import kotlin.concurrent.thread
+import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking{
-
     println("Main program starts: ${Thread.currentThread().name}")
 
-    val result: String? = withTimeoutOrNull(10000){ //if this coroutine fails to execute within 2000 ms then this function(withTimeout) will throw TimeoutCancellationException
-        for (i in 0..500){
-            println("$i.")
-            delay(500)
-        }
-        "i am done"
+    val time = measureTimeMillis {
+        val msgOne = getMessageOne()
+        val msgTwo = getMessageTwo()
+        println("The entire message is: ${msgOne+msgTwo}")
     }
 
-    println("Result: $result")
+    println("Completed in: $time ms")
 
-    println("\nMain program ends: ${Thread.currentThread().name}")
 
+    println("Main program ends: ${Thread.currentThread().name}")
 }
+
+    suspend fun getMessageOne(): String{
+        delay(1000L) //pretend to do some work
+        return "Hello"
+    }
+
+    suspend fun getMessageTwo(): String{
+        delay(1000L) //pretend to do some work
+        return "World"
+    }
+
